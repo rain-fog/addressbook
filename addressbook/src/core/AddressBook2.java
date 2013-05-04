@@ -11,7 +11,6 @@ public class AddressBook2 {
 
 	public AddressBook2() {
 		dataList = new ArrayList<Personal>();
-		personal = null;
 	}
 
 	public List<Personal> getDataList() {
@@ -20,9 +19,9 @@ public class AddressBook2 {
 
 	/**
 	 * データを登録する
-	 * @param name
-	 * @param zip
-	 * @param address
+	 * @param name 名前
+	 * @param zip 郵便番号
+	 * @param address 住所
 	 */
 	public void insert(String name, String zip, String address) {
 		personal = new Personal.Builder(name).zip(zip)
@@ -37,9 +36,9 @@ public class AddressBook2 {
 
 	/**
 	 * データを更新する
-	 * @param name
-	 * @param zip
-	 * @param address
+	 * @param name 名前
+	 * @param zip 郵便番号
+	 * @param address 住所
 	 */
 	public void updata(String name, String zip, String address) {
 		personal = new Personal.Builder(name).zip(zip)
@@ -55,7 +54,7 @@ public class AddressBook2 {
 
 	/**
 	 * データを削除する
-	 * @param name
+	 * @param name 名前
 	 */
 	public void delete(String name) {
 		personal = new Personal.Builder(name).build();
@@ -68,19 +67,46 @@ public class AddressBook2 {
 		}
 	}
 
+	public void deleteAll() {
+		dataList.clear();
+		System.out.println("全件削除しました");
+	}
+
 	/**
 	 * データを一覧表示する
 	 */
-	public void show() {
+	public void showAll() {
 		if (dataList.isEmpty()) {
 			System.out.println("データが存在しません");
 			return;
 		}
 
 		for (Personal personal : dataList) {
-			System.out.println("名　　前:" + personal.getName());
-			System.out.println("郵便番号:" + CheckDataUtil.addHyphen(personal.getZip()));
-			System.out.println("住　　所:" + personal.getAddress() + "\n");
+			this.showOne(personal);
 		}
+	}
+
+	/**
+	 * 名前が一致するデータを検索する
+	 * @param name 名前
+	 */
+	public void search(String name) {
+		personal = new Personal.Builder(name).build();
+		int index = dataList.indexOf(personal);
+		if (index != -1) {
+			this.showOne(personal);
+		} else {
+			System.out.println("データが見つかりません");
+		}
+	}
+
+	/**
+	 * データを一件表示する
+	 * @param personal 個人データ
+	 */
+	private void showOne(Personal personal) {
+		System.out.println("名　　前:" + personal.getName());
+		System.out.println("郵便番号:" + CheckDataUtil.addHyphen(personal.getZip()));
+		System.out.println("住　　所:" + personal.getAddress() + "\n");
 	}
 }

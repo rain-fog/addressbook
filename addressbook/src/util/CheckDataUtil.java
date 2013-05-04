@@ -32,6 +32,7 @@ public class CheckDataUtil {
 		}
 		return true;
 	}
+
 	/**
 	 * 郵便番号が3桁-4桁、または7桁かチェックする。
 	 * @param zip 郵便番号

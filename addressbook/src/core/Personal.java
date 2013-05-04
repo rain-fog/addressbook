@@ -6,9 +6,9 @@ package core;
  *
  */
 public class Personal {
-	private String name;
-	private String zip;
-	private String address;
+	private String name;			//名前
+	private String zip;				//郵便番号
+	private String address;			//住所
 
 	public static class Builder {
 
@@ -43,49 +43,35 @@ public class Personal {
 		this.address = builder.address;
 	}
 
-	/**
-	 * nameを取得します。
-	 * @return name
-	 */
 	public String getName() {
 	    return name;
 	}
-	/**
-	 * nameを設定します。
-	 * @param name name
-	 */
+
 	public void setName(String name) {
 	    this.name = name;
 	}
-	/**
-	 * zipを取得します。
-	 * @return zip
-	 */
+
 	public String getZip() {
 	    return zip;
 	}
-	/**
-	 * zipを設定します。
-	 * @param zip zip
-	 */
+
 	public void setZip(String zip) {
 	    this.zip = zip;
 	}
-	/**
-	 * addressを取得します。
-	 * @return address
-	 */
+
+
 	public String getAddress() {
 	    return address;
 	}
-	/**
-	 * addressを設定します。
-	 * @param address address
-	 */
+
+
 	public void setAddress(String address) {
 	    this.address = address;
 	}
 
+	/**
+	 * 名前が一致すればtrueを返す。
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Personal))

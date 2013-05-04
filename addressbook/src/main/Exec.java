@@ -7,7 +7,13 @@ import java.io.InputStreamReader;
 import core.AddressBook2;
 
 import util.CheckDataUtil;
+import util.CommonUtil;
 
+/**
+ * 実行クラス
+ * @author shin
+ *
+ */
 public class Exec {
 
 	public static void main(String[] args) {
@@ -33,19 +39,38 @@ public class Exec {
 					roopFlg = false;
 					break;
 				case 1:
-					token = checkInput(input, 4);
-					ab.insert(token[1], token[2], token[3]);
+					token = checkInput(input, CommonUtil.ARRAY_NUM_INSERT);
+					if (token.length != 0) {
+						ab.insert(token[1], token[2], token[3]);
+					}
 					break;
 				case 2:
-					token = checkInput(input, 4);
-					ab.updata(token[1], token[2], token[3]);
+					token = checkInput(input, CommonUtil.ARRAY_NUM_UPDATA);
+					if (token.length != 0) {
+						ab.updata(token[1], token[2], token[3]);
+					}
 					break;
 				case 3:
-					token = checkInput(input,2);
-					ab.delete(token[1]);
+					token = checkInput(input, CommonUtil.ARRAY_NUM_DELETE);
+					if (token.length != 0) {
+						ab.delete(token[1]);
+					}
+					break;
+				case 4:
+					if (checkInput(input, 1).length != 0) {
+						ab.deleteAll();
+					}
+					break;
+				case 5:
+					token = checkInput(input, CommonUtil.ARRAY_NUM_SEARCH);
+					if (token.length != 0) {
+						ab.search(token[1]);
+					}
 					break;
 				case 9:
-					ab.show();
+					if (checkInput(input, CommonUtil.ARRAY_NUM_SHOW_ALL).length != 0) {
+						ab.showAll();
+					}
 					break;
 				default:
 					System.out.println("存在しないモード値です");
@@ -77,7 +102,7 @@ public class Exec {
 	 * @param input 入力された文字列
 	 * @param arrayNum 望まれる配列数
 	 * @return 入力された文字列の各値が正しければ分割した配列、
-	 * 正しくない値が存在した場合は空配列
+	 * 正しくない値が存在した場合は空配列を返す
 	 */
 	public static String[] checkInput(String input, int arrayNum) {
 		String[] token = input.split(" ");
