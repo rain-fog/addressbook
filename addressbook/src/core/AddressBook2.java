@@ -5,6 +5,11 @@ import java.util.List;
 
 import util.CheckDataUtil;
 
+/**
+ * 住所録クラス(Personalクラス使用)
+ * @author shin
+ *
+ */
 public class AddressBook2 {
 	private List<Personal> dataList;
 	private Personal personal;
@@ -67,6 +72,9 @@ public class AddressBook2 {
 		}
 	}
 
+	/**
+	 * データを全て削除する
+	 */
 	public void deleteAll() {
 		dataList.clear();
 		System.out.println("全件削除しました");
