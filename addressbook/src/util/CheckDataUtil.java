@@ -8,17 +8,22 @@ package util;
 public class CheckDataUtil {
 
 	/**
-	 * モード値が数値に変換できる文字列かどうかチェックする。
-	 * @param mode モード値
-	 * @return 数値に変換できればtrue
+	 * モード値を取得する。
+	 * 適切な入力値でない場合は-1を返す。
+	 * @param token 入力された文字列
+	 * @return
 	 */
-	public static boolean checkMode(String mode) {
-		try {
-			Integer.parseInt(mode);
-		} catch (NumberFormatException e) {
-			return false;
+	public static int getMode(String input) {
+		String[] token = input.split(" ");
+		if (token.length == 0) {
+			return -1;
 		}
-		return true;
+		try {
+			Integer.parseInt(token[0]);
+		} catch (NumberFormatException e) {
+			return -1;
+		}
+		return Integer.parseInt(token[0]);
 	}
 
 	/**

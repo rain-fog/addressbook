@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import core.AddressBook2;
+import core.AddressBook;
+import core.Person;
 
 import util.CheckDataUtil;
 import util.CommonUtil;
@@ -19,7 +20,7 @@ public class Exec {
 	public static void main(String[] args) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		AddressBook2 ab = new AddressBook2();
+		AddressBook ab = new AddressBook();
 		boolean roopFlg = true;
 
 		//処理実行部
@@ -28,10 +29,11 @@ public class Exec {
 			try {
 				input = br.readLine();
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("入出力エラーです");
+				break;
 			}
 
-			int mode = getMode(input);
+			int mode = CheckDataUtil.getMode(input);
 			String[] token = null;
 
 			switch (mode) {
@@ -41,59 +43,33 @@ public class Exec {
 				case 1:
 					token = checkInput(input, CommonUtil.ARRAY_NUM_INSERT);
 					if (token.length != 0) {
-						ab.insert(token[1], token[2], token[3]);
+						Person person = new Person.Builder(token[1]).zip(token[2]).address(token[3]).build();
+						ab.insert(person);
 					}
 					break;
 				case 2:
 					token = checkInput(input, CommonUtil.ARRAY_NUM_UPDATA);
 					if (token.length != 0) {
-						ab.updata(token[1], token[2], token[3]);
+						Person person = new Person.Builder(token[1]).zip(token[2]).address(token[3]).build();
+						ab.update(person);
 					}
 					break;
 				case 3:
 					token = checkInput(input, CommonUtil.ARRAY_NUM_DELETE);
 					if (token.length != 0) {
-						ab.delete(token[1]);
-					}
-					break;
-				case 4:
-					if (checkInput(input, 1).length != 0) {
-						ab.deleteAll();
-					}
-					break;
-				case 5:
-					token = checkInput(input, CommonUtil.ARRAY_NUM_SEARCH);
-					if (token.length != 0) {
-						ab.search(token[1]);
+						Person person = new Person.Builder(token[1]).build();
+						ab.delete(person);
 					}
 					break;
 				case 9:
 					if (checkInput(input, CommonUtil.ARRAY_NUM_SHOW_ALL).length != 0) {
-						ab.showAll();
+						ab.show();
 					}
 					break;
 				default:
 					System.out.println("存在しないモード値です");
 			}
 		}
-	}
-
-	/**
-	 * モード値を取得する。
-	 * 適切な入力値でない場合は-1を返す。
-	 * @param token 入力された文字列
-	 * @return
-	 */
-	public static int getMode(String input) {
-		String[] token = input.split(" ");
-		if (token.length == 0) {
-			return -1;
-		}
-
-		if (!CheckDataUtil.checkMode(token[0])) {
-			return -1;
-		}
-		return Integer.parseInt(token[0]);
 	}
 
 	/**
@@ -118,11 +94,6 @@ public class Exec {
 			System.out.println(error);
 			token = new String[0];
 			return token;
-		}
-
-		//モード値チェック
-		if (!CheckDataUtil.checkMode(token[0])) {
-			error += "モード値が正しくありません\n";
 		}
 
 		//名前チェック
