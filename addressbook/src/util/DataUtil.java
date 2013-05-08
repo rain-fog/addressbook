@@ -1,17 +1,18 @@
 package util;
 
 /**
- * データチェックユーティリティクラス
+ * データユーティリティクラス
  * @author shin
  *
  */
-public class CheckDataUtil {
+public class DataUtil {
 
 	/**
 	 * モード値を取得する。
 	 * 適切な入力値でない場合は-1を返す。
 	 * @param token 入力された文字列
-	 * @return
+	 * @return モード値。何も入力されていない、もしくは数値に変換
+	 * 出来ない場合は-1を返す。
 	 */
 	public static int getMode(String input) {
 		String[] token = input.split(" ");
