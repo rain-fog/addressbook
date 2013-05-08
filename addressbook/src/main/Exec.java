@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import core.AddressBook;
 import core.Person;
 
-import util.CheckDataUtil;
+import util.DataUtil;
 import util.CommonUtil;
 
 /**
@@ -33,7 +33,7 @@ public class Exec {
 				break;
 			}
 
-			int mode = CheckDataUtil.getMode(input);
+			int mode = DataUtil.getMode(input);
 			String[] token = null;
 
 			switch (mode) {
@@ -98,15 +98,15 @@ public class Exec {
 
 		//名前チェック
 		if (token.length > 2) {
-			if (!CheckDataUtil.checkName(token[1])) {
+			if (!DataUtil.checkName(token[1])) {
 				error += "名前が正しくありません\n";
 			}
 		}
 
 		//郵便番号チェック
 		if (token.length > 3) {
-			if (CheckDataUtil.checkZip(token[2])) {
-				token[2] = CheckDataUtil.removeHyphen(token[2]);
+			if (DataUtil.checkZip(token[2])) {
+				token[2] = DataUtil.removeHyphen(token[2]);
 			} else {
 				error += "郵便番号の値が正しくありません\n";
 			}
