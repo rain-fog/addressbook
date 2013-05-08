@@ -1,69 +1,64 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * 住所録クラス
+ * 住所録クラス。
+ * このクラスで保存するデータはDataインタフェースを実装し、
+ * equalsメソッド・hashCodeメソッドをオーバーライドする必要がある。
+ * オーバーライドしていない場合意図しない動作をする可能性がある。
+ *
  * @author shin
  *
  */
-public class AddressBook<E> {
+public class AddressBook {
 
-	private List<E> dataList;
+	private ArrayList<Data> dataList = new ArrayList<Data>();
 
-	public AddressBook() {
-		this.dataList = new ArrayList<E>();
+	/**
+	 * 渡されたデータと一致するものがなければデータを登録する
+	 * @param data データ
+	 * @return 登録に成功すればtrue、そうでなければfalse
+	 */
+	public boolean insert(Data data) {
+		if (dataList.contains(data)) {
+			return false;
+		}
+		dataList.add(data);
+		return true;
 	}
 
 	/**
-	 * 登録済みデータのリストを返す
-	 * @return 登録されているデータリストであるList<E>
+	 * 渡されたデータと一致するものがあればデータを更新する
+	 * @param data データ
+	 * @return 更新に成功すればtrue、そうでなければfalse
 	 */
-	public List<E> getDataList() {
-		return dataList;
-	}
-
-	/**
-	 * データを登録する。重複している場合は登録しない。
-	 * @param data 登録するデータ
-	 * @return 登録に成功すればtrue
-	 */
-	public boolean insert(E data) {
+	public boolean update(Data data) {
 		if (!dataList.contains(data)) {
-			dataList.add(data);
-			return true;
+			return false;
 		}
-		return false;
+		int index = dataList.indexOf(data);
+		dataList.set(index, data);
+		return true;
 	}
 
 	/**
-	 * データを更新する。更新できるデータがない場合は何も行わない。
-	 * @param data 更新するデータ
-	 * @return 更新に成功すればtrue
+	 * 渡されたデータと一致するものがあればデータを削除する
+	 * @param data データ
+	 * @return 削除に成功すればtrue、そうでなければfalse
 	 */
-	public boolean update(E data) {
-		int index = dataList.indexOf(data);
-
-		if (index != -1) {
-			dataList.set(index, data);
-			return true;
-		}
-		return false;
+	public boolean delete(Data data) {
+		return dataList.remove(data);
 	}
 
 	/**
-	 * データを削除する。削除できるデータがない場合は何も行わない。
-	 * @param data 削除するデータ
-	 * @return 削除に成功すればtrue
+	 * 登録されているデータを全て表示する。
+	 * 表示の形式は保存しているデータクラスのshow()メソッドに
+	 * 依存する
 	 */
-	public boolean delete(E data) {
-		int index = dataList.indexOf(data);
-
-		if (index != -1) {
-			dataList.remove(index);
-			return true;
+	public void show() {
+		for (Data data : dataList) {
+			data.show();
 		}
-		return false;
 	}
 }

@@ -1,11 +1,12 @@
 package core;
 
 /**
- * 個人データクラス
+ * 個人データクラス。
+ * 名前・郵便番号・住所を保持
  * @author shin
  *
  */
-public class Personal {
+public class Person implements Data {
 	private String name;			//名前
 	private String zip;				//郵便番号
 	private String address;			//住所
@@ -32,12 +33,12 @@ public class Personal {
 			return this;
 		}
 
-		public Personal build() {
-			return new Personal(this);
+		public Person build() {
+			return new Person(this);
 		}
 	}
 
-	public Personal(Builder builder) {
+	public Person(Builder builder) {
 		this.name = builder.name;
 		this.zip = builder.zip;
 		this.address = builder.address;
@@ -59,14 +60,21 @@ public class Personal {
 	    this.zip = zip;
 	}
 
-
 	public String getAddress() {
 	    return address;
 	}
 
-
 	public void setAddress(String address) {
 	    this.address = address;
+	}
+
+	/**
+	 * データを表示する
+	 */
+	public void show() {
+		System.out.println("名    前:" + this.name);
+		System.out.println("郵便番号:" + this.zip);
+		System.out.println("住    所:" + this.address + "\n");
 	}
 
 	/**
@@ -74,10 +82,10 @@ public class Personal {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Personal))
+		if (!(o instanceof Person))
 			return false;
-		Personal personal = (Personal)o;
-		return personal.getName().equals(name);
+		Person person = (Person)o;
+		return person.getName().equals(name);
 	}
 
 	@Override
